@@ -71,11 +71,6 @@ class User(Entity):
                 f"SET {', '.join(change_dictionary)} "
                 f"Where {' and '.join(condition_dictionary)}"
             )
-            print(
-                f"UPDATE User "
-                f"SET {', '.join(change_dictionary)} "
-                f"Where {' and '.join(change_dictionary)}"
-            )
         except Exception as error:
             print(f"Error: {error}")
 
