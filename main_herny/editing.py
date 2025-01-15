@@ -78,18 +78,15 @@ class User(Entity):
                 change_list.pop(change_list_index)
                 change_list.append(new_password)
             elif "status_user" in change_list[change_list_index]:
-                print(' and '.join(condition_list))
                 cursor_db.execute(
                     f"select status_user "
-                    f"from User"
-                    f"Where {' and '.join(condition_list)}"
+                    f"from User "
+                    f'where {' and '.join(condition_list)}'
                 )
-                # if change_list[change_list_index].split('"')[1]:
-                date_time = datetime.datetime.today()
-                print(change_list[change_list_index].split('"')[1])
-                new_date_time = "time_status_change_user=" + '"' + str(date_time) + '"'
-                change_list.append(new_date_time)
-            print(change_list)
+                if int(change_list[change_list_index].split('"')[1]) != cursor_db.fetchall()[0][0]:
+                    date_time = datetime.datetime.today()
+                    new_date_time = "time_status_change_user=" + '"' + str(date_time) + '"'
+                    change_list.append(new_date_time)
         try:
             cursor_db.execute(
                 f"UPDATE User "
@@ -235,22 +232,16 @@ if __name__ == "__main__":
     #     status_user=1, role_user=1,
     # ).add(cursor)
     # User.delete('name_user="Ignat"')
-    User.change(cursor, ['login_user="aaa"'], ['status_user="4"'])
+    # User.change(cursor, ['login_user="aaa"'], ['status_user="4"'])
+    # ll = ['login_user="aaa"']
+    # cursor.execute(
+    #     f"select status_user "
+    #     f"from User "
+    #     f'where {' and '.join(ll)}'
+    # )
 
     connection.commit()
 
     connection.close()
-
-    # ss = {
-    #     'id_user': "",
-    #     'name_user': "",
-    #     'login_user': "",
-    #     'mail_user': "",
-    #     'password_user': "",
-    #     'time_add_user': "",
-    #     'time_status_change_user': "",
-    #     'role_user': "",
-    #     'status_user': "",
-    # }
 
 
