@@ -1,8 +1,8 @@
 import sqlite3
 
 
-def create_user() -> None:
-    cursor.execute('''
+def create_user(cursor_db) -> None:
+    cursor_db.execute('''
         CREATE TABLE IF NOT EXISTS User (
         id_user INTEGER PRIMARY KEY,
         name_user varchar (64) NOT NULL,
@@ -19,8 +19,8 @@ def create_user() -> None:
     ''')
 
 
-def create_role() -> None:
-    cursor.execute('''
+def create_role(cursor_db) -> None:
+    cursor_db.execute('''
         CREATE TABLE IF NOT EXISTS Role (
         id_role INTEGER PRIMARY KEY,
         name_role TEXT NOT NULL unique
@@ -28,8 +28,8 @@ def create_role() -> None:
     ''')
 
 
-def create_status() -> None:
-    cursor.execute('''
+def create_status(cursor_db) -> None:
+    cursor_db.execute('''
         CREATE TABLE IF NOT EXISTS Status (
         id_status INTEGER PRIMARY KEY,
         name_status TEXT NOT NULL unique
@@ -42,9 +42,9 @@ if __name__ == "__main__":
 
     cursor = connection.cursor()
 
-    create_status()
-    create_role()
-    create_user()
+    create_status(cursor)
+    create_role(cursor)
+    create_user(cursor)
 
     connection.commit()
 
