@@ -1,6 +1,7 @@
 import hashlib
 import sqlite3
 import datetime
+import os
 from abc import ABCMeta, abstractmethod
 
 
@@ -211,37 +212,34 @@ class Status(Entity):
 
 
 if __name__ == "__main__":
-    connection = sqlite3.connect('application.db')
-    cursor = connection.cursor()
-    # User.delete_all(cursor)
-    # Role(name_role="Пользователь").add(cursor)
-    # Role(name_role="Менеджер").add(cursor)
-    # Role(name_role="Администратор").add(cursor)
-    # Role.delete_all(cursor)
-    # Role.change(cursor, ['name_role="Пользователь"'], ['name_role="user"'])
-    # Status(name_status="Активный").add(cursor)
-    # Status(name_status="Уточнение").add(cursor)
-    # Status(name_status="Не активный").add(cursor)
-    # Status(name_status="Удалён").add(cursor)
-    # Status.delete_all(cursor)
-    # Status.change(cursor, ['name_status="активен"'], ['name_status="activ"'])
-    # Status.delete_all()
-    # User(
-    #     name_user="Ignat", login_user="aaa", mail_user="ggg@mail.ru", password_user="123",
-    #     time_add_user=datetime.datetime.today(), time_status_change_user=datetime.datetime(2025, 1, 1),
-    #     status_user=1, role_user=1,
-    # ).add(cursor)
-    # User.delete('name_user="Ignat"')
-    # User.change(cursor, ['login_user="aaa"'], ['status_user="4"'])
-    # ll = ['login_user="aaa"']
-    # cursor.execute(
-    #     f"select status_user "
-    #     f"from User "
-    #     f'where {' and '.join(ll)}'
-    # )
+    data_base_file = 'application.db'
+    if os.path.exists(data_base_file):
+        connection = sqlite3.connect(data_base_file)
+        cursor = connection.cursor()
+        # User.delete_all(cursor)
+        # Role(name_role="Пользователь").add(cursor)
+        # Role(name_role="Менеджер").add(cursor)
+        # Role(name_role="Администратор").add(cursor)
+        # Role.delete_all(cursor)
+        # Role.change(cursor, ['name_role="Пользователь"'], ['name_role="user"'])
+        # Status(name_status="Активный").add(cursor)
+        # Status(name_status="Уточнение").add(cursor)
+        # Status(name_status="Не активный").add(cursor)
+        # Status(name_status="Удалён").add(cursor)
+        # Status.delete_all(cursor)
+        # Status.change(cursor, ['name_status="активен"'], ['name_status="activ"'])
+        # Status.delete_all()
+        # User(
+        #     name_user="Ignat", login_user="aaa", mail_user="ggg@mail.ru", password_user="123",
+        #     time_add_user=datetime.datetime.today(), time_status_change_user=datetime.datetime(2025, 1, 1),
+        #     status_user=1, role_user=1,
+        # ).add(cursor)
+        # User.delete('name_user="Ignat"')
+        # User.change(cursor, ['login_user="aaa"'], ['status_user="4"'])
 
-    connection.commit()
+        connection.commit()
 
-    connection.close()
-
+        connection.close()
+    else:
+        print(f"База данных '{data_base_file}' не существует.")
 
